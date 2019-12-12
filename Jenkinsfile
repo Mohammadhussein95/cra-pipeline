@@ -14,7 +14,6 @@ pipeline {
       
         stage('Build') {
             steps {
-                sh 'npm install -g yarn'
                 sh 'yarn build'
                 
 /*               script{
