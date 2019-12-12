@@ -1,5 +1,7 @@
 pipeline {
+  
     agent {
+      
         docker {
             image 'node:13.3.0'
             args '-v /root/.m2:/root/.m2:z -u root'
@@ -11,24 +13,27 @@ pipeline {
 
     
     stages {
+       
       
         stage('Build') {
-            steps {
-                
-                
-                
-              script{
-                
+            
+          steps {
+               
                 sh 'npm install -g yarn'
 
                 sh 'yarn install'
 
                 sh 'yarn build'
+
+              
+                
+  /*             script{
+                
                 
    /*                  currentBuild.displayName = "qra-${BUILD_NUMBER}${BUILD_ID}"
                     
   } */                                          
-            }
+            
          
            } 
         }
