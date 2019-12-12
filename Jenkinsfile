@@ -14,6 +14,7 @@ pipeline {
       
         stage('Build') {
             steps {
+                sh 'yarn global react-scripts'
                 sh 'yarn build'
                 
 /*               script{
