@@ -15,18 +15,22 @@ pipeline {
         stage('Build') {
             steps {
                 
+                
+                
+              script{
+                
                 sh 'npm install -g yarn'
 
                 sh 'yarn install'
 
                 sh 'yarn build'
                 
-/*               script{
-                
-                    currentBuild.displayName = "qra-${BUILD_NUMBER}${BUILD_ID}"
+   /*                  currentBuild.displayName = "qra-${BUILD_NUMBER}${BUILD_ID}"
                     
   } */                                          
             }
+         
+           } 
         }
         
         
