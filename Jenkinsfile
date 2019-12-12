@@ -14,14 +14,11 @@ pipeline {
       
         stage('Build') {
             steps {
-                sh 'npm install -g grunt-cli'
-                sh 'npm install'
-                sh 'grunt'
+                
                 sh 'npm install -g yarn'
-                sh 'npx create-react-app my-app'
+
                 sh 'yarn install'
 
-                sh 'yarn global react-scripts'
                 sh 'yarn build'
                 
 /*               script{
