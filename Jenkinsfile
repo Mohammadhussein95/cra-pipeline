@@ -1,33 +1,56 @@
-node {
-  try {
-    stage('Checkout') {
-      checkout scm
+pipeline {
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2:z -u root'
+        }
     }
-    stage('Environment') {
-      sh 'git --version'
-      echo "Branch: ${env.BRANCH_NAME}"
-      sh 'docker -v'
-      sh 'printenv'
+        options {
+        skipStagesAfterUnstable()
+        }     
+
+    
+    stages {
+      
+        stage('Build') {
+            steps {
+                sh 'yarn build'
+                
+/*               script{
+                
+                    currentBuild.displayName = "qra-${BUILD_NUMBER}${BUILD_ID}"
+                    
+  } */                                          
+            }
+        }
+        
+        
+/*   stage('Results') {
+       
+       steps {
+
+             sh " mv ./target/my-app-1.0-SNAPSHOT.jar 'qra-${BUILD_NUMBER}.jar' "
+               }
+         }
+
+        
+        stage('Upload') {
+            
+            steps {
+                script{
+                    
+                    s3Upload(  entries: [[bucket: 'qra-artifacts/qra-${BUILD_NUMBER}.jar', 
+                                        selectedRegion: 'eu-central-1', 
+                                        sourceFile: 'qra-${BUILD_NUMBER}.jar' ]], 
+                                        profileName: 'jenkins_s3')
+
+                
+                }
+
+            } */
+        } 
+        
     }
-    stage('Build Docker test'){
-      sh 'docker build -t react-test -f Dockerfile.test --no-cache . '
-    }
-    stage('Docker test'){
-      sh 'docker run --rm react-test'
-    }
-    stage('Clean Docker test'){
-      sh 'docker rmi react-test'
-    }
-    stage('Deploy'){
-      if (env.BRANCH_NAME == 'master') {
-        sh 'docker build -t react-app --no-cache .'
-        sh 'docker tag react-app localhost:5000/react-app'
-        sh 'docker push localhost:5000/react-app'
-        sh 'docker rmi -f react-app localhost:5000/react-app'
-      }
-    }
-  }
-  catch (err) {
-    throw err
-  }
 }
+
+ 
