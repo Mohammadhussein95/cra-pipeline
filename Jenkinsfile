@@ -19,8 +19,7 @@ pipeline {
             
           steps {
                
-               sh "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add "
-               echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'
+               sh "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list'"
                sh   'sudo apt update && sudo apt install yarn'
                sh  'yarn install'
                sh 'yarn build'
