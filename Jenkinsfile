@@ -45,11 +45,11 @@ pipeline {
         }
         
         
-/*   stage('Results') {
+   stage('Results') {
        
        steps {
 
-             sh " mv ./target/my-app-1.0-SNAPSHOT.jar 'qra-${BUILD_NUMBER}.jar' "
+             sh " mv ./build 'qra-yarn-${BUILD_NUMBER}' "
                }
          }
 
@@ -59,15 +59,15 @@ pipeline {
             steps {
                 script{
                     
-                    s3Upload(  entries: [[bucket: 'qra-artifacts/qra-${BUILD_NUMBER}.jar', 
+                    s3Upload(  entries: [[bucket: 'qra-artifacts/qra-yarn-${BUILD_NUMBER}', 
                                         selectedRegion: 'eu-central-1', 
-                                        sourceFile: 'qra-${BUILD_NUMBER}.jar' ]], 
+                                        sourceFile: 'qra-yarn-${BUILD_NUMBER}' ]], 
                                         profileName: 'jenkins_s3')
 
                 
                 }
 
-            } */
+            } 
         
         
     }
